@@ -40,4 +40,5 @@ Route::get('/admin', function () {
 Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],function ($router)
 {
     Route::resource('article', 'ArticleController');
+    Route::resource('tag', 'TagController', ['except' => 'show']);
 });
