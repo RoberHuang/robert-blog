@@ -41,4 +41,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
 {
     Route::resource('article', 'ArticleController');
     Route::resource('tag', 'TagController', ['except' => 'show']);
+
+    Route::get('upload', 'UploadController@index');
+    Route::post('upload/file', 'UploadController@uploadFile');
+    Route::delete('upload/file', 'UploadController@deleteFile');
+    Route::post('upload/folder', 'UploadController@createFolder');
+    Route::delete('upload/folder', 'UploadController@deleteFolder');
 });

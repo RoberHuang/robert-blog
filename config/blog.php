@@ -16,4 +16,9 @@ return [
 
     'copyright' => '@iblog',
     'web_count' => '2018',
+
+    'uploads' => [
+        'storage' => 'public',
+        'webpath' => '/storage',
+    ],
 ];
