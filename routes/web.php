@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
 {
     Route::resource('article', 'ArticleController');
     Route::resource('tag', 'TagController', ['except' => 'show']);
+    Route::resource('cate', 'CategoryController', ['except' => 'show']);
 
     Route::get('upload', 'UploadController@index');
     Route::post('upload/file', 'UploadController@uploadFile');
