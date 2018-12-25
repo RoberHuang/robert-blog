@@ -9,4 +9,9 @@ class Category extends Model
     protected $fillable = [
         'cate_name', 'cate_title', 'cate_keywords', 'cate_description', 'cate_frequency', 'cate_order', 'cate_pid',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'cate_id');
+    }
 }
