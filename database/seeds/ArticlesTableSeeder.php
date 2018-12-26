@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Article;
+use App\Models\Admin\Article;
 
 class ArticlesTableSeeder extends Seeder
 {

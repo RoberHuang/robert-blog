@@ -21,4 +21,7 @@ return [
         'storage' => 'public',
         'webpath' => '/storage',
     ],
+
+    'page_image' => 'http://blog.com/storage/page_image.png',
+
 ];

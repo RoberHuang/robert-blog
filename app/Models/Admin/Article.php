@@ -16,12 +16,37 @@ class Article extends Model
     ];
 
     /**
+     * 返回 published_at 字段的日期部分
+     */
+    public function getPublishDateAttribute($value)
+    {
+        return $this->published_at->format('Y-m-d');
+    }
+
+    /**
+     * 返回 published_at 字段的时间部分
+     */
+    public function getPublishTimeAttribute($value)
+    {
+        return $this->published_at->format('g:i A');
+    }
+
+    /**
+     * article_content 字段别名
+     * $article->content 就会执行该方法
+     */
+    public function getContentAttribute($value)
+    {
+        return $this->article_content;
+    }
+
+    /**
      * 把published_at从Y-m-d转成Y-m-d H:i:s
      */
-    public function setPublishedAtAttribute($date)
+    /*public function setPublishedAtAttribute($date)
     {
         $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $date);
-    }
+    }*/
 
     public function category()
     {
@@ -43,7 +68,7 @@ class Article extends Model
      *
      * @param string $value
      */
-    public function setTitleAttribute($value)
+    public function setArticleTitleAttribute($value)
     {
         $this->attributes['article_title'] = $value;
 
@@ -86,15 +111,15 @@ class Article extends Model
     /**
      * Sync tag relation adding new tags as needed
      *
-     * @param array $tags
+     * @param array $tag_ids
      */
-    public function syncTags(array $tags)
+    public function syncTags(array $tag_ids)
     {
-        Tag::addNeededTags($tags);
+        //Tag::addNeededTags($tags);
 
-        if (count($tags)) {
+        if (count($tag_ids)) {
             $this->tags()->sync(
-                Tag::whereIn('tag', $tags)->get()->pluck('id')->all()
+                $tag_ids
             );
             return;
         }

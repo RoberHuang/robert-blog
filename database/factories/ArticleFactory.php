@@ -2,11 +2,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Article::class, function (Faker $faker) {
-    $title = $faker->sentence(mt_rand(3, 10));
+$factory->define(App\Models\Admin\Article::class, function (Faker $faker) {
     return [
-        'slug' => str_slug($title),
-        'article_title' => $title,
+        'article_title' => $faker->sentence(mt_rand(3, 10)),
         'cate_id' => 18,
         'article_keywords' => $faker->word,
         'article_description' => $faker->word,
