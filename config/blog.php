@@ -7,12 +7,15 @@
  */
 
 return [
+    'name' => 'iBlog',
     'title' => 'iBlog',
+    'subtitle' => 'http://blog.com',
     'posts_per_page' => 5,
 
     'seo_title' => 'This is Robert\'s blog',
     'keywords' => '',
-    'description' => '',
+    'description' => 'Rogue的博客',
+    'author' => 'Robert',
 
     'copyright' => '@iblog',
     'web_count' => '2018',
@@ -22,6 +25,6 @@ return [
         'webpath' => '/storage',
     ],
 
-    'page_image' => 'http://blog.com/storage/page_image.png',
+    'page_image' => 'http://blog.com/storage/uploads/home-bg.jpg',
 
 ];

@@ -18,6 +18,7 @@
     "lodash": "^4.17.4",
     "pickadate": "^3.5.6",
     "selectize": "^0.12.6",
+    "startbootstrap-clean-blog": "^5.0.2",
     "vue": "^2.5.7"
   }
 }
