@@ -22,8 +22,9 @@ class ContactController extends Controller
 
         //Mail::to(config('blog.email'))->send(new ContactMail($data));
         // 将邮件发送任务推送到队列
-        Mail::to(config('blog.email'))->queue(new ContactMail($data));
+        //Mail::to(config('blog.email'))->queue(new ContactMail($data));
 
+        $this->dispatch(new SendContactEmail($data));
         return back()->with('success', '邮件发送成功，我们将尽快确认');
     }
 }
