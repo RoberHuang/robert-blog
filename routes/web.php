@@ -19,6 +19,9 @@ Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 {
     Route::get('/index', 'IndexController@index')->name('blog.index');
     Route::get('/index/{slug}', 'IndexController@show')->name('blog.detail');
+
+    Route::get('contact', 'ContactController@showForm');
+    Route::post('contact', 'ContactController@sendContactInfo');
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function ($router) {

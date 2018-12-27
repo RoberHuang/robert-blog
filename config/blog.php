@@ -16,6 +16,7 @@ return [
     'keywords' => '',
     'description' => 'Rogue的博客',
     'author' => 'Robert',
+    'email' => 'roberhuang@outlook.com',
 
     'copyright' => '@iblog',
     'web_count' => '2018',
