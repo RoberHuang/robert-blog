@@ -34,6 +34,7 @@
                                 in
                                 {!! join(', ', $article->tagLinks()) !!}
                             @endif
+                            <a href="{{ $article->url($tag) }}#disqus_thread"></a>
                         </p>
                     </div>
                     <hr>
@@ -72,4 +73,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('comments')
+    <script id="dsq-count-scr" src="//blog-com-5.disqus.com/count.js" async></script>
 @stop
