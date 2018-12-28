@@ -7,6 +7,7 @@ use App\Models\Admin\Tag;
 use App\Models\Article;
 use App\Services\ArticleService;
 use App\Services\RssFeed;
+use App\Services\SiteMap;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -39,5 +40,12 @@ class IndexController extends Controller
         $rss = $feed->getRSS();
 
         return response($rss)->header('Content-type', 'application/rss+xml');
+    }
+
+    public function siteMap(SiteMap $siteMap)
+    {
+        $map = $siteMap->getSiteMap();
+
+        return response($map)->header('Content-type', 'text/xml');
     }
 }
