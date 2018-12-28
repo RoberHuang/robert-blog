@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Tag;
 use App\Models\Article;
 use App\Services\ArticleService;
+use App\Services\RssFeed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -31,5 +32,12 @@ class IndexController extends Controller
             $tag = Tag::where('tag', $tag)->firstOrFail();
 
         return view($article->layout, compact('article', 'tag'));
+    }
+
+    public function rss(RssFeed $feed)
+    {
+        $rss = $feed->getRSS();
+
+        return response($rss)->header('Content-type', 'application/rss+xml');
     }
 }

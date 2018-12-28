@@ -28,4 +28,5 @@ return [
 
     'page_image' => 'http://blog.com/storage/uploads/home-bg.jpg',
 
+    'rss_size' => 10,
 ];
