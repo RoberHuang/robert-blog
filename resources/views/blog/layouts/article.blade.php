@@ -1,7 +1,12 @@
 @extends('layouts.blog', [
-    'title' => $article->title,
+    'title' => $article->article_title,
     'meta_description' => $article->article_description ?? config('blog.description'),
 ])
+
+@section('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css" rel="stylesheet">
+@stop
+
 @section('page-header')
     <header class="masthead" style="background-image: url('{{ page_image($article->article_thumb ?? config('blog.page_image')) }}')">
         <div class="overlay"></div>
@@ -62,10 +67,14 @@
                         @endif
                     @endif
                 </div>
+                <hr>
+                <div class="social-share" data-mobile-sites="weibo,qq,qzone,tencent" data-disabled="google,twitter,facebook"
+                     data-weibo-title="分享到微博-{{ $article->article_title }}" data-qq-title="分享到QQ"
+                     data-wechat-qrcode-title="请打开微信扫一扫" data-description="一键分享到微博，QQ空间，腾讯微博，人人，豆瓣">
+                </div>
             </div>
         </div>
     </div>
-<html>
 @stop
     {{--{!! nl2br(e($article->article_content)) !!}--}}
 @section('comments')
@@ -77,4 +86,8 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 @stop
