@@ -42,7 +42,7 @@ function page_image($value = null)
         $value = config('blog.page_image');
     }
 
-    if (!starts_with($value, 'http') && $value.substr(0, 1) != '/') {
+    if (!starts_with($value, 'http') && substr($value, 0, 1) != '/') {
         $value = config('blog.uploads.webpath') . '/' . $value;
     }
 
