@@ -43,7 +43,7 @@ return [
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
-            'host' => 'laradock_beanstalkd_1',
+            'host' => env('BEANSTALKD_HOST', 'localhost'),
             'queue' => 'default',
             'retry_after' => 90,
         ],
