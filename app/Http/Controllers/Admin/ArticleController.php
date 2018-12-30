@@ -23,7 +23,7 @@ class ArticleController extends AdminController
         'article_author' => '',
         'article_frequency' => 0,
         'is_draft' => "0",
-        'layout' => 'blog.layouts.post',
+        'layout' => 'blog.layouts.article',
         'publish_date' => '',
         'publish_time' => '',
         'tag_ids' => [],

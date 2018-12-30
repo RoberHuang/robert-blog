@@ -7,9 +7,10 @@
  */
 
 return [
-    'name' => 'iBlog',
-    'title' => 'iBlog',
-    'subtitle' => 'http://blog.com',
+    'name' => env('APP_NAME', 'iBlog'),
+    'title' => env('APP_NAME', 'iBlog'),
+    'subtitle' => env('APP_URL', 'http://blog.com'),
+    'url' => env('APP_URL', 'http://blog.com'),
     'posts_per_page' => 5,
 
     'seo_title' => 'This is Robert\'s blog',
@@ -26,7 +27,7 @@ return [
         'webpath' => '/storage',
     ],
 
-    'page_image' => 'http://blog.com/storage/uploads/home-bg.jpg',
+    'page_image' => '/storage/uploads/home-bg.jpg',
 
     'rss_size' => 10,
 ];
