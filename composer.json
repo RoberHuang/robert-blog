@@ -13,6 +13,7 @@
         "michelf/php-markdown": "^1.8",
         "michelf/php-smartypants": "^1.8",
         "pda/pheanstalk": "^3.2",
+        "pingplusplus/pingpp-php": "^2.4",
         "suin/php-rss-writer": "^1.6"
     },
     "require-dev": {
