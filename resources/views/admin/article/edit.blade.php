@@ -97,7 +97,7 @@
     <script>
         $(function() {
             $("#publish_date").pickadate({
-                format: "mmm-d-yyyy"
+                format: "yyyy-mm-dd"
             });
             $("#publish_time").pickatime({
                 format: "h:i A"
