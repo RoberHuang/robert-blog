@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        props: ['user'],
+        props: ['project'],
         data() {
             return {
                 tasks: [],
@@ -24,18 +24,18 @@
         },
         mounted() {
             //console.log('Component mounted.')
-            axios.get('/api/admin/task/'+ this.user).then(response => {
+            axios.get('/api/admin/task/'+ this.project).then(response => {
                 this.tasks = response.data
             });
             // 客户端监听事件广播
-            window.Echo.channel('tasks.'+ this.user).listen('TaskCreated', e => {
+            window.Echo.channel('tasks.'+ this.project).listen('TaskCreated', e => {
                 //console.log(e)
                 this.tasks.push(e.body)
             });
         },
         methods: {
             addTask() {
-                axios.post(`/api/admin/task/${this.user}`, {body: this.newTask});
+                axios.post(`/api/admin/task/${this.project}`, {body: this.newTask});
                 this.tasks.push(this.newTask);
                 this.newTask = '';
             }

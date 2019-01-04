@@ -12,8 +12,8 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="text-center">{{$user->name}} 的待办事项</h2>
-                <tasks user="{{ $user->id }}"></tasks>
+                <h2 class="text-center">{{$project->name}} 的待办事项</h2>
+                <tasks project="{{ $project->id }}"></tasks>
             </div>
         </div>
     </div>

@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router) {
-    $router->get('task/{user}', 'TaskController@list');
-    $router->post('task/{user}', 'TaskController@create');
+    $router->get('task/{project}', 'TaskController@list');
+    $router->post('task/{project}', 'TaskController@create');
 });

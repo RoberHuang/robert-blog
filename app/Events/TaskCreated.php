@@ -36,7 +36,7 @@ class TaskCreated implements ShouldBroadcast
     public function broadcastWith(){
         return [
             'id' => $this->task->id,
-            'usr_id' => $this->task->usr_id,
+            'project_id' => $this->task->project_id,
             'body' => $this->task->body,
         ];
     }
@@ -48,6 +48,6 @@ class TaskCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('tasks.'. $this->task->usr_id);
+        return new Channel('tasks.'. $this->task->project_id);
     }
 }

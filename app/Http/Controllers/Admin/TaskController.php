@@ -4,25 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Events\TaskCreated;
 use App\Models\Admin\Admin;
+use App\Models\Admin\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TaskController extends Controller
 {
-    public function index(Admin $user)
+    public function index(Project $project)
     {
-        return view('admin.task.index', compact('user'));
+        return view('admin.task.index', compact('project'));
     }
 
-    public function list(Admin $user)
+    public function list(Project $project)
     {
         //return Task::all()->pluck('body');
-        return $user->tasks->pluck('body');
+        return $project->tasks->pluck('body');
     }
 
-    public function create(Request $request, Admin $user)
+    public function create(Request $request, Project $project)
     {
-        $task = $user->tasks()->create(['body' => $request->get('body')]);
+        $task = $project->tasks()->create(['body' => $request->get('body')]);
 
         // 触发事件
         event(new TaskCreated($task));

@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AdminsTableSeeder::class);
 
+        $this->call(ProjectsTableSeeder::class);
+
         Model::reguard();   // 恢复校验
     }
 }
