@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router) {
+    $router->get('task/{user}', 'TaskController@list');
+    $router->post('task/{user}', 'TaskController@create');
+});
