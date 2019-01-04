@@ -60,4 +60,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],f
     Route::delete('upload/file', 'UploadController@deleteFile');
     Route::post('upload/folder', 'UploadController@createFolder');
     Route::delete('upload/folder', 'UploadController@deleteFolder');
+
+    $router->get('task/{project}', 'TaskController@index');
 });
