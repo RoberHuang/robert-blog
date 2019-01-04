@@ -25,6 +25,7 @@ class TaskCreated implements ShouldBroadcast
     public function __construct(Task $task)
     {
         $this->task = $task;
+        $this->dontBroadcastToCurrentUser();    // 不广播给当前用户
     }
 
     /**

@@ -27,6 +27,11 @@
             axios.get('/api/admin/task/'+ this.user).then(response => {
                 this.tasks = response.data
             });
+            // 客户端监听事件广播
+            window.Echo.channel('tasks.'+ this.user).listen('TaskCreated', e => {
+                //console.log(e)
+                this.tasks.push(e.body)
+            });
         },
         methods: {
             addTask() {

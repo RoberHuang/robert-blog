@@ -18,3 +18,7 @@
         </div>
     </div>
 @stop
+
+@section('scripts')
+    {{--<script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>--}}
+@stop
