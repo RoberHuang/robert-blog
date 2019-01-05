@@ -25,7 +25,7 @@ class TagController extends AdminController
      */
     public function index()
     {
-        $tags = Tag::orderBy('id', 'desc')->paginate(1);
+        $tags = Tag::orderBy('id', 'desc')->paginate(config('blog.posts_per_page'));
         return view('admin.tag.index')->withTags($tags);
     }
 

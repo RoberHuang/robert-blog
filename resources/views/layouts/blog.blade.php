@@ -18,6 +18,7 @@
     @yield('styles')
 </head>
 <body>
+<div id="app">
     @include('blog.partials.page-nav')
     @yield('page-header')
     @yield('content')
@@ -28,5 +29,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/common.js') }}"></script>
     @yield('scripts')
+</div>
 </body>
 </html>

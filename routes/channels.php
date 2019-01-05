@@ -11,6 +11,9 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+/*
+ * 私有频道认证
+ */
+Broadcast::channel('tasks.{project}', function ($user, \App\Models\Admin\Project $project) {
+    return $project->users()->contains($user);
 });

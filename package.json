@@ -20,5 +20,9 @@
     "selectize": "^0.12.6",
     "startbootstrap-clean-blog": "^5.0.2",
     "vue": "^2.5.7"
+  },
+  "dependencies": {
+    "laravel-echo": "^1.5.2",
+    "socket.io-client": "^2.2.0"
   }
 }
