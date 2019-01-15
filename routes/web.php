@@ -46,6 +46,9 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->resource('article', 'ArticleController');
     $router->resource('tag', 'TagController', ['except' => 'show']);
     $router->resource('cate', 'CategoryController', ['except' => 'show']);
+    $router->resource('config', 'ConfigController', ['except' => 'show']);
+    $router->post('config/setOrder', 'ConfigController@setOrder');
+    $router->post('config/setConf', 'ConfigController@setConf');
 
     $router->get('upload', 'UploadController@index');
     $router->post('upload/file', 'UploadController@uploadFile');
