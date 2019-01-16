@@ -1,4 +1,4 @@
-<footer>
+<footer style="background-color: #fff;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted text-center">Copyright © {{ config('blog.author') }} 2019</p>
+                <p>© {{ config('blog.author') }} 2019 <a href="http://www.miitbeian.gov.cn/">浙ICP备19001219号</a></p>
             </div>
         </div>
     </div>
