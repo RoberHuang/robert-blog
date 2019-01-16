@@ -1,4 +1,4 @@
-@extends('layouts.blog')
+@extends('layouts.clean')
 
 @section('page-header')
     <header class="masthead" style="background-image: url('{{ page_image($page_image) }}')">

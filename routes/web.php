@@ -11,19 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/index'); //view('welcome');
-});
+Route::redirect('/', '/index', 301);
 
 Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 {
-    Route::get('/index', 'IndexController@index')->name('blog.index');
-    Route::get('/index/{slug}', 'IndexController@show')->name('blog.detail');
-    Route::get('rss', 'IndexController@rss');
-    Route::get('sitemap.xml', 'IndexController@siteMap');
+    $router->get('index', 'IndexController@index')->name('blog.index');
+    $router->get('index/{slug}', 'IndexController@show')->name('blog.detail');
+    $router->get('rss', 'IndexController@rss');
+    $router->get('sitemap.xml', 'IndexController@siteMap');
 
-    Route::get('contact', 'ContactController@showForm');
-    Route::post('contact', 'ContactController@sendContactInfo');
+    $router->get('contact', 'ContactController@showForm');
+    $router->post('contact', 'ContactController@sendContactInfo');
 
     /*Route::post('pay', 'OrderController@pay');
     Route::get('payment/success', 'OrderController@paySuccess');
@@ -43,23 +41,20 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');     //发送重置密码邮件的表单页面
     $router->post('password/reset', 'ResetPasswordController@reset');                                                   //重置密码
     $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');      //重置密码表单
-});
 
-Route::get('/admin', function () {
-    return redirect('/admin/article');
-});
+    $router->redirect('/', '/admin/article', 301);
+    $router->resource('article', 'ArticleController');
+    $router->resource('tag', 'TagController', ['except' => 'show']);
+    $router->resource('cate', 'CategoryController', ['except' => 'show']);
+    $router->resource('config', 'ConfigController', ['except' => 'show']);
+    $router->post('config/setOrder', 'ConfigController@setOrder');
+    $router->post('config/setConf', 'ConfigController@setConf');
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin', 'middleware'=>'web'],function ($router)
-{
-    Route::resource('article', 'ArticleController');
-    Route::resource('tag', 'TagController', ['except' => 'show']);
-    Route::resource('cate', 'CategoryController', ['except' => 'show']);
-
-    Route::get('upload', 'UploadController@index');
-    Route::post('upload/file', 'UploadController@uploadFile');
-    Route::delete('upload/file', 'UploadController@deleteFile');
-    Route::post('upload/folder', 'UploadController@createFolder');
-    Route::delete('upload/folder', 'UploadController@deleteFolder');
+    $router->get('upload', 'UploadController@index');
+    $router->post('upload/file', 'UploadController@uploadFile');
+    $router->delete('upload/file', 'UploadController@deleteFile');
+    $router->post('upload/folder', 'UploadController@createFolder');
+    $router->delete('upload/folder', 'UploadController@deleteFolder');
 
     $router->get('task/{project}', 'TaskController@index');
 });

@@ -12,10 +12,28 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('admins/style/css/is-login.admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/css/is-login.admin.css') }}">
 </head>
 <body>
     <div id="app">
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('admin.login'))
+                <div class="top-right links">
+                    <a href="{{ url('/') }}">网站首页</a>
+                    <a href="{{ route('admin.login') }}" class="dropdown dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        语言选择 <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        {{--@foreach(Config::get('app.locales') as $l => $lang)--}}
+                            {{--@if($l != App::getLocale())--}}
+                            <li><a href="#">中文</a></li>
+                            {{--@endif--}}
+                        {{--@endforeach--}}
+                    </ul>
+                </div>
+            @endif
+        </div>
+
         @yield('content')
     </div>
 

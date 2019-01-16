@@ -1,4 +1,4 @@
-@extends('layouts.blog', [
+@extends('layouts.clean', [
     'title' => $article->article_title,
     'meta_description' => $article->article_description ?? config('blog.description'),
 ])

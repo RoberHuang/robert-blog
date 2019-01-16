@@ -1,4 +1,4 @@
-@extends('layouts.blog', ['meta_description' => '联系我们'])
+@extends('layouts.clean', ['meta_description' => '联系我们'])
 
 @section('page-header')
     <header class="masthead" style="background-image: url('{{ page_image('uploads/contact-bg.jpg') }}')">
