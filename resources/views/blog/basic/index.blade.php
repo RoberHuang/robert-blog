@@ -42,14 +42,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-time" style="margin-right: 20px;">发布于：{{ $article->published_at->format('Y-m-d') }}</span>
-                            <span class="glyphicon glyphicon-tags" style="margin-right: 20px;">
-                                @if ($article->tags->count())
-                                    标签：
-                                    {!! join(', ', $article->tagLinks()) !!}
-                                @endif
-                                <a href="{{ $article->url($tag) }}#disqus_thread"></a>
-                            </span>
+                            @if ($article->tags->count())
+                                <span class="glyphicon glyphicon-tags" style="margin-right: 20px;">标签：{!! join(', ', $article->tagLinks()) !!}</span>
+                            @endif
                             <span class="glyphicon glyphicon-user">作者：{{$article->article_author}}</span>
+                            <a href="{{ $article->url($tag) }}#disqus_thread"></a>
                         </div>
                     </div>
                 @endforeach
