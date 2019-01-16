@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();   // 取消批量赋值白名单、黑名单属性校验
         // $this->call(UsersTableSeeder::class);
-        $this->call(TagsTableSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
-        $this->call(GoodsTableSeeder::class);
+        //$this->call(TagsTableSeeder::class);
+        //$this->call(ArticlesTableSeeder::class);
+        //$this->call(GoodsTableSeeder::class);
 
         $this->call(AdminsTableSeeder::class);
 
-        $this->call(ProjectsTableSeeder::class);
+        //$this->call(ProjectsTableSeeder::class);
 
         Model::reguard();   // 恢复校验
     }
