@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin\Tag;
 use App\Models\Article;
 use App\Services\ArticleService;
@@ -11,7 +10,7 @@ use App\Services\SiteMap;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
     public function index(Request $request)
     {
@@ -19,9 +18,8 @@ class IndexController extends Controller
 
         $article_service = new ArticleService($tag);
         $data = $article_service->lists($tag);
-        $layout = $tag ? Tag::layout($tag) : 'blog.layouts.index';
 
-        return view($layout, $data);
+        return view('blog.'. $this->layout .'.index', $data);
     }
 
     public function show(Request $request, $slug)
@@ -32,7 +30,9 @@ class IndexController extends Controller
         if ($tag)
             $tag = Tag::where('tag', $tag)->firstOrFail();
 
-        return view($article->layout, compact('article', 'tag'));
+        $data = Article::where('cate_id', $article->cate_id)->orderBy('id','desc')->take(6)->get();
+
+        return view('blog.'. $this->layout .'.article', compact('article', 'tag', 'data'));
     }
 
     public function rss(RssFeed $feed)

@@ -19,7 +19,7 @@
 </head>
 <body>
 <div id="app">
-    @include('blog.partials.page-nav')
+    @include('blog.clean.nav')
     @yield('page-header')
     @yield('content')
     @yield('comments')

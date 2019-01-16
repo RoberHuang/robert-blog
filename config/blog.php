@@ -28,6 +28,7 @@ return [
     ],
 
     'page_image' => '/storage/uploads/home-bg.jpg',
+    'article_thumb' => '/images/article_thumb.jpg',
 
     'rss_size' => 10,
 ];

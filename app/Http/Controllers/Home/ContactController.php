@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Home;
 use App\Http\Requests\ContactRequest;
 use App\Jobs\SendContactEmail;
 use App\Mail\ContactMail;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends Controller
+class ContactController extends CommonController
 {
     public function showForm()
     {
-        return view('blog.contact.index');
+        return view('blog.'. $this->layout .'.contact.index');
     }
 
     public function sendContactInfo(ContactRequest $request)
