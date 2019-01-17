@@ -60,6 +60,18 @@ class Article extends Model
         return $return;
     }
 
+    public function keywordSpan()
+    {
+        $label_class = ['label-primary', 'label-success', 'label-info', 'label-warning', 'label-danger'];
+        $keywords = explode(',', $this->article_keywords);
+        $return = [];
+        foreach ($keywords as $key => $keyword) {
+            $return[] = '<span class="label '.$label_class[$key].'">'.$keyword.'</span>';
+        }
+
+        return $return;
+    }
+
     /**
      * Return next post after this one or null
      *
