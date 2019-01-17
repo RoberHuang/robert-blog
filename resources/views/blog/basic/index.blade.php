@@ -32,9 +32,9 @@
                         <div class="col-sm-6 col-md-9">
                             <a href="{{ $article->url($tag) }}">
                                 @if($article->subtitle)
-                                    <p class="post-subtitle" style="font-weight: bold;"> {{ $article->subtitle }}</p>
+                                    <p style="font-weight: bold;"> {{ $article->subtitle }}</p>
                                 @endif
-                                <p>{{$article->art_description}}</p>
+                                <p>{{$article->article_description}}</p>
                             </a>
                             {{--<a title="{{$article->article_title}}" href="{{  $article->url($tag) }}" target="_blank" class="readmore">阅读全文>></a>--}}
                         </div>
@@ -56,16 +56,14 @@
                             @if ($articles->currentPage() > 1)
                                 <li>
                                     <a href="{!! $articles->url($articles->currentPage() - 1) !!}">
-                                        ←
-                                        Previous {{ $tag->tag }} Posts
+                                        上一页 [ {{ $tag->tag }} ]
                                     </a>
                                 </li>
                             @endif
                             @if ($articles->hasMorePages())
                                 <li>
                                     <a href="{!! $articles->nextPageUrl() !!}">
-                                        Next {{ $tag->tag }} Posts
-                                        →
+                                        下一页 [ {{ $tag->tag }} ]
                                     </a>
                                 </li>
                             @endif
@@ -73,16 +71,14 @@
                             @if ($articles->currentPage() > 1)
                                 <li>
                                     <a href="{!! $articles->url($articles->currentPage() - 1) !!}">
-                                        ←
-                                        Newer {{ $tag ? $tag->tag : '' }} Posts
+                                        上一页 {{ $tag ? '[ '.$tag->tag.' ]' : '' }}
                                     </a>
                                 </li>
                             @endif
                             @if ($articles->hasMorePages())
                                 <li>
                                     <a href="{!! $articles->nextPageUrl() !!}">
-                                        Older {{ $tag ? $tag->tag : '' }} Posts
-                                        →
+                                        下一页 {{ $tag ? '[ '.$tag->tag.' ]' : '' }}
                                     </a>
                                 </li>
                             @endif
