@@ -43,7 +43,7 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-body">
-                <span class="glyphicon glyphicon-tags"></span>关键字词：<span class="label label-primary">{{$article->keyword}}</span>
+                <span class="glyphicon glyphicon-tags"></span>关键字词：{!! join(' ', $article->keywordSpan()) !!}
             </div>
         </div>
         <div class="row">

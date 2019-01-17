@@ -30,7 +30,7 @@ class IndexController extends CommonController
         if ($tag)
             $tag = Tag::where('tag', $tag)->firstOrFail();
 
-        $data = Article::where('cate_id', $article->cate_id)->orderBy('id','desc')->take(6)->get();
+        $data = Article::where('cate_id', $article->cate_id)->where('id', '<>', $article->id)->orderBy('id','desc')->take(6)->get();
 
         return view('blog.'. $this->layout .'.article', compact('article', 'tag', 'data'));
     }
