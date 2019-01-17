@@ -65,7 +65,8 @@ class Article extends Model
         $label_class = ['label-primary', 'label-success', 'label-info', 'label-warning', 'label-danger'];
         $keywords = explode(',', $this->article_keywords);
         $return = [];
-        foreach ($keywords as $key => $keyword) {
+        foreach ($keywords as $keyword) {
+            $key = mt_rand(0, 4);
             $return[] = '<span class="label '.$label_class[$key].'">'.$keyword.'</span>';
         }
 
