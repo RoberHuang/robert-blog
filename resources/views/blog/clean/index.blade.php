@@ -76,5 +76,5 @@
 @stop
 
 @section('comments')
-    <script id="dsq-count-scr" src="//blog-com-5.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//stormenglish.disqus.com/count.js" async></script>
 @stop
