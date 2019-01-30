@@ -5,7 +5,7 @@
             <a class="nav-link" href="/admin/article">文章</a>
         </li>
         <li @if (Request::is('admin/cate*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/cate">分类</a>
+            <a class="nav-link" href="/admin/categories">分类</a>
         </li>
         <li @if (Request::is('admin/tag*')) class="nav-item active" @else class="nav-item" @endif>
             <a class="nav-link" href="/admin/tag">标签</a>

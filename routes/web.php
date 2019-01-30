@@ -31,6 +31,10 @@ Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
     Route::get('goods', 'GoodsController@index');*/
 });
 
+Route::prefix('admin')->group(function ($router) {
+    $router->resource('categories', 'CategoriesController', ['except' => 'show']);
+});
+
 Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->get('login', 'LoginController@showLoginForm')->name('admin.login');
     $router->post('login', 'LoginController@login');
@@ -45,7 +49,6 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->redirect('/', '/admin/article', 301);
     $router->resource('article', 'ArticleController');
     $router->resource('tag', 'TagController', ['except' => 'show']);
-    $router->resource('cate', 'CategoryController', ['except' => 'show']);
     $router->resource('config', 'ConfigController', ['except' => 'show']);
     $router->post('config/setOrder', 'ConfigController@setOrder');
     $router->post('config/setConf', 'ConfigController@setConf');
