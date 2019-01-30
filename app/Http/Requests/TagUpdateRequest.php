@@ -25,8 +25,16 @@ class TagUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'subtitle' => 'required',
-            'layout' => 'required',
+        ];
+    }
+
+    public function fillData()
+    {
+        return [
+            'title' => $this->title,
+            'page_image' => $this->page_image ?? '',
+            'description' => $this->description ?? '',
+            'reverse_direction' => (bool) $this->reverse_direction
         ];
     }
 }

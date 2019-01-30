@@ -24,10 +24,19 @@ class TagCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'tag' => 'bail|required|unique:tags,tag',
+            'name' => 'bail|required|unique:tags,name',
             'title' => 'required',
-            'subtitle' => 'required',
-            'layout' => 'required',
+        ];
+    }
+
+    public function fillData()
+    {
+        return [
+            'name' => $this->name,
+            'title' => $this->title,
+            'page_image' => $this->page_image ?? '',
+            'description' => $this->description ?? '',
+            'reverse_direction' => (bool) $this->reverse_direction
         ];
     }
 }

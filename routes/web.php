@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 
 Route::prefix('admin')->group(function ($router) {
     $router->resource('categories', 'CategoriesController', ['except' => 'show']);
+    $router->resource('tags', 'TagsController', ['except' => 'show']);
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function ($router) {
@@ -48,7 +49,6 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
 
     $router->redirect('/', '/admin/article', 301);
     $router->resource('article', 'ArticleController');
-    $router->resource('tag', 'TagController', ['except' => 'show']);
     $router->resource('config', 'ConfigController', ['except' => 'show']);
     $router->post('config/setOrder', 'ConfigController@setOrder');
     $router->post('config/setConf', 'ConfigController@setConf');
