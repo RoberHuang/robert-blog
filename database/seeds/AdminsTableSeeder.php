@@ -12,7 +12,7 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        Admin::truncate();
+        //Admin::truncate();
         factory(Admin::class)->create([
             'password' => bcrypt('123456')
         ]);

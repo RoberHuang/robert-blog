@@ -32,6 +32,8 @@ Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 });
 
 Route::prefix('admin')->group(function ($router) {
+    $router->redirect('/', '/admin/article', 301);
+    $router->resource('posts', 'PostsController');
     $router->resource('categories', 'CategoriesController', ['except' => 'show']);
     $router->resource('tags', 'TagsController', ['except' => 'show']);
 });
@@ -47,8 +49,6 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->post('password/reset', 'ResetPasswordController@reset');                                                   //重置密码
     $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');      //重置密码表单
 
-    $router->redirect('/', '/admin/article', 301);
-    $router->resource('article', 'ArticleController');
     $router->resource('config', 'ConfigController', ['except' => 'show']);
     $router->post('config/setOrder', 'ConfigController@setOrder');
     $router->post('config/setConf', 'ConfigController@setConf');
