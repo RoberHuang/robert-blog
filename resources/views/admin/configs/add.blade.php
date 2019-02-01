@@ -20,17 +20,17 @@
 
                         @include('admin.partials.errors')
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{url('admin/config')}}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{url('admin/configs')}}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-3 control-label"><i class="require">*</i>名称</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $name }}" autofocus>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" autofocus>
                                 </div>
                             </div>
 
-                            @include('admin.config._form')
+                            @include('admin.configs._form')
 
                             <div class="form-group row">
                                 <div class="col-md-7 col-md-offset-3">

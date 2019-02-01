@@ -32,10 +32,14 @@ Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 });
 
 Route::prefix('admin')->group(function ($router) {
-    $router->redirect('/', '/admin/article', 301);
-    $router->resource('posts', 'PostsController');
-    $router->resource('categories', 'CategoriesController', ['except' => 'show']);
-    $router->resource('tags', 'TagsController', ['except' => 'show']);
+    $router->redirect('/', '/admin/posts', 301);
+    $router->resource('/posts', 'PostsController');
+    $router->resource('/categories', 'CategoriesController', ['except' => 'show']);
+    $router->resource('/tags', 'TagsController', ['except' => 'show']);
+
+    $router->post('/configs/setOrder', 'ConfigController@setOrder');
+    $router->post('/configs/setConf', 'ConfigsController@setConf');
+    $router->resource('/configs', 'ConfigsController', ['except' => 'show']);
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function ($router) {
@@ -48,10 +52,6 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');     //发送重置密码邮件的表单页面
     $router->post('password/reset', 'ResetPasswordController@reset');                                                   //重置密码
     $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');      //重置密码表单
-
-    $router->resource('config', 'ConfigController', ['except' => 'show']);
-    $router->post('config/setOrder', 'ConfigController@setOrder');
-    $router->post('config/setConf', 'ConfigController@setConf');
 
     $router->get('upload', 'UploadController@index');
     $router->post('upload/file', 'UploadController@uploadFile');

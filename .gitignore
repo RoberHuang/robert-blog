@@ -13,3 +13,4 @@ yarn-error.log
 Envoy.blade.php
 laravel-echo-server.json
 laravel-echo-server.lock
+config/web.php

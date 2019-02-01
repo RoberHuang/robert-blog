@@ -21,19 +21,19 @@
                         @include('admin.partials.errors')
                         @include('admin.partials.success')
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{url('admin/config/'.$id)}}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/configs/'.$data['id']) }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="id" value="{{ $id }}">
+                            <input type="hidden" name="id" value="{{ $data['id'] }}">
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-3 control-label"><i class="require">*</i>名称</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $name }}" autofocus>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $data['name'] ?? '') }}" autofocus>
                                 </div>
                             </div>
 
-                            @include('admin.config._form')
+                            @include('admin.configs._form')
 
                             <div class="form-group row">
                                 <div class="col-md-7 col-md-offset-3">
@@ -74,7 +74,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" action="{{url('admin/config/'.$id)}}">
+                    <form method="POST" action="{{ url('admin/configs/'.$data['id']) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>

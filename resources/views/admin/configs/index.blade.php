@@ -9,7 +9,7 @@
                 </h3>
             </div>
             <div class="col-md-6 text-right">
-                <a href="{{ route('config.create') }}" class="btn btn-success btn-md">
+                <a href="{{ route('configs.create') }}" class="btn btn-success btn-md">
                     <i class="fa fa-plus-circle"></i> 新增配置
                 </a>
             </div>
@@ -21,7 +21,7 @@
                 @include('admin.partials.errors')
                 @include('admin.partials.success')
 
-                <form action="{{url('admin/config/setConf')}}" method="post">
+                <form action="{{url('admin/configs/setConf')}}" method="post">
                     {{csrf_field()}}
                 <table id="tags-table" class="table table-striped table-bordered">
                     <thead>
@@ -39,18 +39,18 @@
                         @foreach ($data as $v)
                             <tr>
                                 <td class="text-center">
-                                    <input type="text" onchange="changeOrder(this,'{{$v->id}}','{{url('admin/config/setOrder')}}')" value="{{$v->order}}" style="width:30px;text-align:center">
+                                    <input type="text" name="order[]" onchange="changeOrder(this,'{{ $v['id'] }}','{{url('admin/configs/setOrder')}}')" value="{{ $v['order'] }}" style="width:30px;text-align:center">
                                 </td>
-                                <td class="text-center">{{$v->id}}</td>
+                                <td class="text-center">{{ $v['id'] }}</td>
                                 <td>
-                                    <a href="#">{{$v->name}}</a>
+                                    <a href="#">{{ $v['name'] }}</a>
                                 </td>
-                                <td>{{$v->title}}</td>
+                                <td>{{ $v['title'] }}</td>
                                 <td>
-                                    {!! $v->_html !!}
-                                    <input type="hidden" name="conf_id[]" value="{{$v->id}}"></td>
+                                    {!! $v['_html'] !!}
+                                    <input type="hidden" name="conf_id[]" value="{{ $v['id'] }}"></td>
                                 <td>
-                                    <a href="{{url('admin/config/'.$v->id.'/edit')}}" class="btn btn-xs btn-info">
+                                    <a href="{{url('admin/configs/'.$v['id'].'/edit')}}" class="btn btn-xs btn-info">
                                         <i class="fa fa-edit"></i> 编辑
                                     </a>
                                 </td>

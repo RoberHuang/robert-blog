@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ConfigTypeValidate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ConfigCreateRequest extends FormRequest
@@ -26,7 +27,21 @@ class ConfigCreateRequest extends FormRequest
         return [
             'name' =>'bail|required|unique:configs,name',
             'type' => 'required',
+            'value' => new ConfigTypeValidate($this),
             'order' => 'required|integer|between:0,255',
+        ];
+    }
+
+    public function fillData()
+    {
+        return [
+            'title'      => $this->title ?? '',
+            'name'       => $this->name,
+            'type'       => $this->type,
+            'value'      => $this->value ?? '',
+            'order'      => (int) $this->order,
+            'content'    => $this->get('content') ?? '',
+            'remark'     => $this->remark ?? '',
         ];
     }
 }
