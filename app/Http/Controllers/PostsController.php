@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\CategoryRepository;
 use App\Repositories\Contracts\TagRepository;
+use App\Repositories\Criteria\LimitCriteria;
+use App\Repositories\Criteria\PublishedCriteria;
+use App\Repositories\Criteria\WhereCriteria;
 use App\Services\TreeService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Repositories\Contracts\PostRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class PostsController.
@@ -26,6 +30,9 @@ class PostsController extends Controller
     protected $category_repository;
 
     protected $tag_repository;
+
+    protected $layout;
+
     /**
      * PostsController constructor.
      *
@@ -40,6 +47,8 @@ class PostsController extends Controller
         $this->repository = $repository;
         $this->category_repository = $category_repository;
         $this->tag_repository = $tag_repository;
+
+        $this->layout = config('web.layout', 'basic');
     }
 
     /**
@@ -57,6 +66,13 @@ class PostsController extends Controller
             return view('admin.posts.index', $posts);
         }
 
+        $tag = $request->get('tag');
+        $this->repository->pushCriteria(new PublishedCriteria());
+        $data = $this->repository->getLists($tag);
+        $news = $this->getNews();
+        $hots = $this->getHots();
+
+        return view($this->layout .'.posts.index', $data)->withNews($news['data'])->withHots($hots['data']);
     }
 
     public function create()
@@ -98,15 +114,33 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Request $request, $slug)
     {
-        $post = $this->repository->find($id);
 
-        return view('posts.show', compact('post'));
+        $this->repository->pushCriteria(new WhereCriteria(['slug' => $slug]));
+        $post = $this->repository->with(['user', 'tags', 'category'])->first();
+        $this->repository->resetCriteria();
+
+        if ($tag = $request->get('tag')) {
+            $this->tag_repository->pushCriteria(new WhereCriteria(['name' => $tag]));
+            $tag = $this->tag_repository->setPresenter("Prettus\\Repository\\Presenter\\ModelFractalPresenter")->first();
+            $tag = $tag['data'];
+        }
+
+        //DB::enableQueryLog();
+        $older = $this->repository->olderPost($post['data'], $tag['name']);
+        $newer = $this->repository->newerPost($post['data'], $tag['name']);
+
+        $this->repository->pushCriteria(new LimitCriteria(0, 6));
+        $relation = $this->repository->orderBy('id', 'desc')
+            ->findWhere(['category_id' => $post['data']['category_id'], ['id', '<>', $post['data']['id']]]);
+        //dd(DB::getQueryLog());
+
+        return view($this->layout .'.posts.show', $post, compact('tag'))->withRelation($relation['data'])->withOlder($older['data'])->withNewer($newer['data']);
     }
 
     /**
@@ -181,5 +215,23 @@ class PostsController extends Controller
         $tree = new TreeService();
 
         return $tree->createTree($data, 'id', 'pid', 'name');
+    }
+
+    protected function getNews()
+    {
+        //DB::enableQueryLog();
+        //$this->repository->resetCriteria();
+        //$this->repository->pushCriteria(new PublishedCriteria());
+        $this->repository->pushCriteria(new LimitCriteria(0, 6));
+        $news = $this->repository->orderBy('published_at', 'desc')->all();
+        //dd(DB::getQueryLog());
+        return $news;
+    }
+
+    protected function getHots()
+    {
+        $this->repository->pushCriteria(new LimitCriteria(0, 5));
+
+        return $this->repository->orderBy('visited', 'desc')->all();
     }
 }

@@ -34,5 +34,16 @@ class TagRepositoryEloquent extends BaseRepository implements TagRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function first($columns = ['*'])
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $results = $this->model->firstOrFail($columns);
+
+        $this->resetModel();
+
+        return $this->parserResult($results);
+    }
 }

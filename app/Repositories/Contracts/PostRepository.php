@@ -12,4 +12,9 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 interface PostRepository extends RepositoryInterface
 {
     //
+    public function getLists($tag = null);
+
+    public function newerPost(array $post, $tag_name = null);
+
+    public function olderPost(array $post, $tag_name = null);
 }

@@ -2,8 +2,10 @@
 
 namespace App\Entities;
 
+use App\Models\Admin\Admin;
 use App\Services\Markdowner;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -40,6 +42,21 @@ class Post extends Model implements Transformable
         return $value;
     }
 
+    public function getKeywordAttribute($value)
+    {
+        if (Route::currentRouteName() == 'posts.show') {
+            $label_class = ['label-primary', 'label-success', 'label-info', 'label-warning', 'label-danger'];
+            $keywords = explode(',', $value);
+            $return = '';
+            foreach ($keywords as $keyword) {
+                $key = mt_rand(0, 4);
+                $return .= '<span class="label '.$label_class[$key].'">'.$keyword.'</span> ';
+            }
+            return $return;
+        }
+        return $value;
+    }
+
     /**
      * 将文章标题转化为 URL 的一部分，以利于SEO
      * @param $value
@@ -51,6 +68,11 @@ class Post extends Model implements Transformable
         if (!$this->exists) $this->setUniqueSlug(uniqid(str_random(8)), 0);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(Admin::class, 'user_id', 'id', 'admins');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -58,7 +80,7 @@ class Post extends Model implements Transformable
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'post_tag')->select('tags.id');
+        return $this->belongsToMany(Tag::class, 'post_tag')->select('tags.id', 'tags.name');
     }
 
     protected function setUniqueSlug($title, $extra)

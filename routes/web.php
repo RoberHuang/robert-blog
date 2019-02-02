@@ -11,12 +11,13 @@
 |
 */
 
-Route::redirect('/', '/index', 301);
+Route::redirect('/', '/posts', 301);
+
+Route::get('/posts', 'PostsController@index')->name('posts.index');
+Route::get('/posts/{slug}', 'PostsController@show')->name('posts.show');
 
 Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 {
-    $router->get('index', 'IndexController@index')->name('blog.index');
-    $router->get('index/{slug}', 'IndexController@show')->name('blog.detail');
     $router->get('rss', 'IndexController@rss');
     $router->get('sitemap.xml', 'IndexController@siteMap');
 
