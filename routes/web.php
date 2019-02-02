@@ -20,14 +20,16 @@ Route::post('/contacts', 'ContactsController@store')->name('contacts.store');
 Route::get('/rss', 'PublicController@rss');
 Route::get('/site-map.xml', 'PublicController@siteMap');
 
+Route::get('/goods', 'GoodsController@index');
+
 Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 {
-    /*Route::post('pay', 'OrderController@pay');
+    Route::post('pay', 'OrderController@pay');
     Route::get('payment/success', 'OrderController@paySuccess');
     Route::post('payment/notify', 'OrderController@notify');    // ping++后台设置的webhooks接收地址
     Route::get('buy/{id}', 'OrderController@buy');
 
-    Route::get('goods', 'GoodsController@index');*/
+
 });
 
 Route::prefix('admin')->group(function ($router) {
