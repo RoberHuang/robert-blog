@@ -1,20 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Jobs\SendContactEmail;
 use App\Mail\ContactMail;
 use Illuminate\Support\Facades\Mail;
 
-class ContactController extends CommonController
+/**
+ * Class ContactsController.
+ *
+ * @package namespace App\Http\Controllers;
+ */
+class ContactsController extends CommonController
 {
-    public function showForm()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return view('blog.'. $this->layout .'.contact.index');
+        return view($this->layout .'.contacts.index');
     }
 
-    public function sendContactInfo(ContactRequest $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param ContactRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(ContactRequest $request)
     {
         $data = $request->only('name', 'email', 'phone');
         $data['messageLines'] = explode("\n", $request->get('message'));

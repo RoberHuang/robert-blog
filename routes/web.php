@@ -15,14 +15,13 @@ Route::redirect('/', '/posts', 301);
 
 Route::get('/posts', 'PostsController@index')->name('posts.index');
 Route::get('/posts/{slug}', 'PostsController@show')->name('posts.show');
+Route::get('/contacts', 'ContactsController@index')->name('contacts.index');
+Route::post('/contacts', 'ContactsController@store')->name('contacts.store');
 
 Route::group(['namespace' => 'Home', 'middleware'=>'web'],function ($router)
 {
     $router->get('rss', 'IndexController@rss');
     $router->get('sitemap.xml', 'IndexController@siteMap');
-
-    $router->get('contact', 'ContactController@showForm');
-    $router->post('contact', 'ContactController@sendContactInfo');
 
     /*Route::post('pay', 'OrderController@pay');
     Route::get('payment/success', 'OrderController@paySuccess');

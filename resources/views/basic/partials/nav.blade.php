@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="blog-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-                <li><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> 联系我们</a></li>
+                <li><a href="/contacts"><span class="glyphicon glyphicon-envelope"></span> 联系我们</a></li>
             </ul>
         </div>
 

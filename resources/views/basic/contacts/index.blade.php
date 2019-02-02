@@ -17,9 +17,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                @include('admin.partials.errors')
-                @include('admin.partials.success')
-                <form name="sentMessage" action="/contact" method="post" novalidate>
+                @include('common.partials.errors')
+                @include('common.partials.success')
+                <form name="sentMessage" action="{{ route('contacts.store') }}" method="post" novalidate>
                     <input type="hidden" name="_token" value="{!! csrf_token() !!}">
                     <div class="form-group">
                         <label for="name">姓名</label>
