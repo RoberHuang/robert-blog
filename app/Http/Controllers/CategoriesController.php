@@ -141,6 +141,10 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
+        $cate = $this->repository->with('posts')->find($id);
+        if (! empty($cate['data']['posts']))
+            return redirect('admin/categories')->withErrors('删除失败：该分类有关联文章，无法删除.');
+
         $deleted = $this->repository->delete($id);
 
         return redirect('admin/categories')->with('success',  $deleted.'分类删除成功.');

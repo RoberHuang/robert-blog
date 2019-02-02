@@ -52,6 +52,7 @@ class TagsController extends Controller
 
     public function destroy($id)
     {
+        $this->repository->sync($id, 'posts', []);
         $deleted = $this->repository->delete($id);
 
         return redirect('admin/tags')->with('success',  $deleted.'标签删除成功.');

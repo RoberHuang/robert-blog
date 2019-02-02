@@ -24,7 +24,7 @@ class Category extends Model implements Transformable
         'pid', 'name', 'title', 'level', 'description', 'order',
     ];
 
-    public function articles()
+    public function posts()
     {
         return $this->hasMany(Post::class, 'category_id');
     }

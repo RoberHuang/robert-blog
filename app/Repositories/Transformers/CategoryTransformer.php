@@ -29,6 +29,7 @@ class CategoryTransformer extends TransformerAbstract
             'level'    => (int) $model->level,
             'description'=> $model->description,
             'order'      => (int) $model->order,
+            'posts'      => $model->posts->toArray()
         ];
     }
 }

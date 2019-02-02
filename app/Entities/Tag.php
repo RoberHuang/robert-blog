@@ -24,7 +24,7 @@ class Tag extends Model implements Transformable
         'name', 'title', 'page_image', 'description', 'reverse_direction',
     ];
 
-    public function articles()
+    public function posts()
     {
         return $this->belongsToMany(Post::class, 'post_tag');
     }
