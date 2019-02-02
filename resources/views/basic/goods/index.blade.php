@@ -29,7 +29,7 @@
                             <img src="{{ $gd['image'] }}" alt="">
                             <h1>{{ $gd['subject'] }}</h1>
                         </article>
-                        <a href="/buy/{{ $gd['id'] }}" class="btn btn-block btn-success">立即购买</a>
+                        <a href="/payments/{{ $gd['id'] }}" class="btn btn-block btn-success">立即购买</a>
                     </div>
                 @endforeach
             <div class="col-lg-8 col-md-10 ">

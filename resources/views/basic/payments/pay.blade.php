@@ -1,4 +1,4 @@
-@extends('layouts.blog', [
+@extends('layouts.basic', [
     'meta_description' => 'ping++ 支付',
 ])
 
