@@ -53,7 +53,6 @@ class PostCreateRequest extends FormRequest
             'description' => $this->description ?? '',
             'thumbnail' => $this->thumbnail ?? config('blog.page_image'),
             'content' => $this->get('content'),
-            'visited' => 0,
             'is_draft' => (bool)$this->is_draft,
             'published_at' => $published_at,
         ];
