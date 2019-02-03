@@ -1,35 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\UploadFileRequest;
 use App\Http\Requests\UploadNewFolderRequest;
 use App\Services\UploadsManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class UploadController extends AdminController
+class UploadsController extends AdminController
 {
     protected $manager;
 
     public function __construct(UploadsManager $manager)
     {
+        parent::__construct();
+
         $this->manager = $manager;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $folder = $request->get('folder');
         $data = $this->manager->folderInfo($folder);
 
-        return view('admin.upload.index', $data);
+        return view('admin.uploads.index', $data);
     }
 
+    /**
+     * 创建目录
+     *
+     * @param UploadNewFolderRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function createFolder(UploadNewFolderRequest $request)
     {
         $new_folder = $request->get('new_folder');
@@ -45,21 +55,35 @@ class UploadController extends AdminController
         return redirect()->back()->withErrors([$error]);
     }
 
-    public function deleteFile(Request $request)
+    /**
+     * 上传文件
+     *
+     * @param UploadFileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(UploadFileRequest $request)
     {
-        $del_file = $request->get('del_file');
-        $path = $request->get('folder') . '/' . $del_file;
+        $file = $_FILES['file'];
+        $fileName = $request->get('file_name')?: $file['name'];
+        $path = str_finish($request->get('folder'), '/') . $fileName;
+        $content = File::get($file['tmp_name']);
 
-        $result = $this->manager->deleteFile($path);
+        $result = $this->manager->saveFile($path, $content);
 
         if ($result === true) {
-            return redirect()->back()->with('success', '文件「' . $del_file . '」已删除.');
+            return redirect()->back()->with('success', '文件「' . $fileName . '」上传成功.');
         }
 
-        $error = $result ?: "文件删除出错.";
+        $error = $result ?: "文件上传出错.";
         return redirect()->back()->withErrors([$error]);
     }
 
+    /**
+     * 删除目录
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteFolder(Request $request)
     {
         $del_folder = $request->get('del_folder');
@@ -75,20 +99,24 @@ class UploadController extends AdminController
         return redirect()->back()->withErrors([$error]);
     }
 
-    public function uploadFile(UploadFileRequest $request)
+    /**
+     * 删除文件
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Request $request)
     {
-        $file = $_FILES['file'];
-        $fileName = $request->get('file_name')?: $file['name'];
-        $path = str_finish($request->get('folder'), '/') . $fileName;
-        $content = File::get($file['tmp_name']);
+        $del_file = $request->get('del_file');
+        $path = $request->get('folder') . '/' . $del_file;
 
-        $result = $this->manager->saveFile($path, $content);
+        $result = $this->manager->deleteFile($path);
 
         if ($result === true) {
-            return redirect()->back()->with('success', '文件「' . $fileName . '」上传成功.');
+            return redirect()->back()->with('success', '文件「' . $del_file . '」已删除.');
         }
 
-        $error = $result ?: "文件上传出错.";
+        $error = $result ?: "文件删除出错.";
         return redirect()->back()->withErrors([$error]);
     }
 }

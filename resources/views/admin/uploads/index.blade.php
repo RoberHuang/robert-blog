@@ -10,7 +10,7 @@
                 <div class="pull-left">
                     <ul class="breadcrumb">
                         @foreach ($breadcrumbs as $path => $disp)
-                            <li><a href="/admin/upload?folder={{ $path }}">{{ $disp }}</a></li>
+                            <li><a href="/admin/uploads?folder={{ $path }}">{{ $disp }}</a></li>
                         @endforeach
                         <li class="active">{{ $folderName }}</li>
                     </ul>
@@ -48,7 +48,7 @@
                     @foreach ($subfolders as $path => $name)
                         <tr>
                             <td>
-                                <a href="/admin/upload?folder={{ $path }}">
+                                <a href="/admin/uploads?folder={{ $path }}">
                                     <i class="fa fa-folder fa-lg fa-fw"></i>
                                     {{ $name }}
                                 </a>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    @include('admin.upload._modals')
+    @include('admin.uploads._modals')
 
 @stop
 

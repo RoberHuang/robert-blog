@@ -11,7 +11,7 @@
             <a class="nav-link" href="/admin/tags">标签</a>
         </li>
         <li @if (Request::is('admin/upload*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/upload">上传</a>
+            <a class="nav-link" href="/admin/uploads">上传</a>
         </li>
         <li @if (Request::is('admin/config*')) class="nav-item active" @else class="nav-item" @endif>
             <a class="nav-link" href="/admin/configs">配置</a>

@@ -36,6 +36,12 @@ Route::prefix('admin')->group(function ($router) {
     $router->post('/configs/setOrder', 'ConfigController@setOrder');
     $router->post('/configs/setConf', 'ConfigsController@setConf');
     $router->resource('/configs', 'ConfigsController', ['except' => 'show']);
+
+    $router->get('/uploads', 'UploadsController@index')->name('uploads.index');
+    $router->post('/uploads', 'UploadsController@store')->name('uploads.store');
+    $router->delete('/uploads', 'UploadsController@destroy')->name('uploads.destroy');
+    $router->post('/uploads/folder', 'UploadsController@createFolder');
+    $router->delete('/uploads/folder', 'UploadsController@deleteFolder');
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function ($router) {
@@ -48,12 +54,6 @@ Route::prefix('admin')->namespace('Admin')->group(function ($router) {
     $router->get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');     //发送重置密码邮件的表单页面
     $router->post('password/reset', 'ResetPasswordController@reset');                                                   //重置密码
     $router->get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('admin.password.reset');      //重置密码表单
-
-    $router->get('upload', 'UploadController@index');
-    $router->post('upload/file', 'UploadController@uploadFile');
-    $router->delete('upload/file', 'UploadController@deleteFile');
-    $router->post('upload/folder', 'UploadController@createFolder');
-    $router->delete('upload/folder', 'UploadController@deleteFolder');
 
     $router->get('task/{project}', 'TaskController@index');
 });
