@@ -48,3 +48,14 @@ function page_image($value = null)
 
     return $value;
 }
+
+/**
+ * change [['id' => 1], ['id' => 2]] to [1, 2]
+ *
+ * @param array $tag
+ * @return int
+ */
+function pluck_id($tag)
+{
+    return $tag['id'];
+}

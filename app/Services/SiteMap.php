@@ -8,13 +8,20 @@
 
 namespace App\Services;
 
-
-use App\Models\Article;
-use Carbon\Carbon;
+use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Criteria\LimitCriteria;
+use App\Repositories\Criteria\PublishedCriteria;
 use Illuminate\Support\Facades\Cache;
 
 class SiteMap
 {
+    protected $repository;
+
+    public function __construct(PostRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Return the content of the Site Map
      */
@@ -35,16 +42,12 @@ class SiteMap
      */
     protected function buildSiteMap()
     {
-        $articles = Article::where('published_at', '<=', Carbon::now())
-            ->where('is_draft', 0)
-            ->orderBy('published_at', 'desc')
-            ->take(config('blog.rss_size'))
-            ->pluck('updated_at', 'slug')
-            ->all();
+        $this->repository->pushCriteria(new PublishedCriteria());
+        $this->repository->pushCriteria(new LimitCriteria(0, config('blog.rss_size')));
+        $posts = $this->repository->orderBy('updated_at', 'desc')->all(['updated_at', 'slug']);
 
-        $data = array_values($articles);
-        sort($data);
-        $lastmod = last($data); // 将数组的内部指针设置为其最后一个元素
+        $lastmod = $posts['data'][0]['updated_at'] ?? '';
+
         $url = trim(url('/'), '/') . '/';
 
         $xml = [];
@@ -57,10 +60,10 @@ class SiteMap
         $xml[] = '    <priority>0.8</priority>';
         $xml[] = '  </url>';
 
-        foreach ($articles as $slug => $lastmod) {
+        foreach ($posts['data'] as $post) {
             $xml[] = '  <url>';
-            $xml[] = "    <loc>{$url}index/$slug</loc>";
-            $xml[] = "    <lastmod>$lastmod</lastmod>";
+            $xml[] = "    <loc>{$url}posts/{$post['slug']}</loc>";
+            $xml[] = "    <lastmod>{$post['updated_at']}</lastmod>";
             $xml[] = "  </url>";
         }
 
