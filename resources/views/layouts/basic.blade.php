@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="app">
-    @include('blog.basic.nav')
+    @include('basic.partials.nav')
     @yield('page-header')
     @yield('content')
     @yield('comments')

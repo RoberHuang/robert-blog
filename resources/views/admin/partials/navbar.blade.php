@@ -2,19 +2,19 @@
     <li class="nav-item"><a class="nav-link" href="/">首页</a></li>
     @auth('admin')
         <li @if (Request::is('admin/post*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/article">文章</a>
+            <a class="nav-link" href="/admin/posts">文章</a>
         </li>
         <li @if (Request::is('admin/cate*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/cate">分类</a>
+            <a class="nav-link" href="/admin/categories">分类</a>
         </li>
         <li @if (Request::is('admin/tag*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/tag">标签</a>
+            <a class="nav-link" href="/admin/tags">标签</a>
         </li>
         <li @if (Request::is('admin/upload*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/upload">上传</a>
+            <a class="nav-link" href="/admin/uploads">上传</a>
         </li>
         <li @if (Request::is('admin/config*')) class="nav-item active" @else class="nav-item" @endif>
-            <a class="nav-link" href="/admin/config">配置</a>
+            <a class="nav-link" href="/admin/configs">配置</a>
         </li>
     @endauth
 </ul>

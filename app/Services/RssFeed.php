@@ -8,8 +8,9 @@
 
 namespace App\Services;
 
-
-use App\Models\Article;
+use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Criteria\LimitCriteria;
+use App\Repositories\Criteria\PublishedCriteria;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Suin\RSSWriter\Channel;
@@ -18,6 +19,13 @@ use Suin\RSSWriter\Item;
 
 class RssFeed
 {
+    protected $repository;
+    
+    public function __construct(PostRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Return the content of the RSS feed
      */
@@ -52,19 +60,17 @@ class RssFeed
             ->lastBuildDate($now->timestamp)
             ->appendTo($feed);
 
-        $articles = Article::where('published_at', '<=', $now)
-            ->where('is_draft', 0)
-            ->orderBy('published_at', 'desc')
-            ->take(config('blog.rss_size'))
-            ->get();
+        $this->repository->pushCriteria(new PublishedCriteria());
+        $this->repository->pushCriteria(new LimitCriteria(0, config('blog.rss_size')));
+        $posts = $this->repository->orderBy('published_at', 'desc')->all();
 
-        foreach ($articles as $article) {
+        foreach ($posts['data'] as $post) {
             $item = new Item();
-            $item->title($article->article_title)
-                ->description($article->article_description)
-                ->url($article->url())
-                ->pubDate($article->published_at->timestamp)
-                ->guid($article->url(), true)
+            $item->title($post['title'])
+                ->description($post['description'])
+                ->url(url('/posts/' . $post['slug']))
+                ->pubDate(strtotime($post['published_at']))
+                ->guid(url('/posts/' . $post['slug']), true)
                 ->appendTo($channel);
         }
 

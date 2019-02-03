@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+        'Prettus\Repository\Events\RepositoryEntityDeleted' => [
+            'App\Listeners\RepositoryEntityDeletedListener',
+        ],
+        'App\Events\PostVisited' => [
+            'App\Listeners\PostVisitedListener',
+        ],
     ];
 
     /**

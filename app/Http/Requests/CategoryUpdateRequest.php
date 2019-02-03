@@ -24,9 +24,23 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'cate_name' =>'bail|required|unique:categories,cate_name,' . $this->id,
-            'cate_order' => 'required',
-            'cate_pid' => 'required',
+            'name' =>'bail|required|unique:categories,name,' . $this->id,
+            'order' => 'required',
+            'pid' => 'required',
+        ];
+    }
+
+    public function fillData()
+    {
+        $pid_level = explode('-', $this->pid);
+
+        return [
+            'pid' => $pid_level[0],
+            'name' => $this->name,
+            'title' => $this->title ?? '',
+            'level' => $pid_level[1] + 1,
+            'description' => $this->description ?? '',
+            'order' => $this->order ?? 0,
         ];
     }
 }
