@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\ConfigCreateRequest;
+use App\Http\Requests\ConfigSetRequest;
 use App\Http\Requests\ConfigUpdateRequest;
 use App\Repositories\Contracts\ConfigRepository;
 use Illuminate\Http\Request;
 
-class ConfigsController extends Controller
+class ConfigsController extends AdminController
 {
     protected $repository;
 
     public function __construct(ConfigRepository $repository)
     {
+        parent::__construct();
+
         $this->repository = $repository;
     }
 
@@ -66,7 +70,7 @@ class ConfigsController extends Controller
         return redirect('/admin/configs')->with('success', '删除成功.');
     }
 
-    public function setConf(Request $request){
+    public function setConf(ConfigSetRequest $request){
         foreach($request->input('conf_id') as $key=>$val){
             $this->repository->update([
                 'content'=> $request->input('content')[$key],

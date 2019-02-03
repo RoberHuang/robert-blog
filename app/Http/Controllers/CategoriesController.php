@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\Category;
+use App\Http\Controllers\Admin\AdminController;
 use App\Services\TreeService;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -16,7 +16,7 @@ use App\Repositories\Validators\CategoryValidator;
  *
  * @package namespace App\Http\Controllers;
  */
-class CategoriesController extends Controller
+class CategoriesController extends AdminController
 {
     /**
      * @var CategoryRepository
@@ -36,6 +36,8 @@ class CategoriesController extends Controller
      */
     public function __construct(CategoryRepository $repository, CategoryValidator $validator)
     {
+        parent::__construct();
+
         $this->repository = $repository;
         $this->validator  = $validator;
     }

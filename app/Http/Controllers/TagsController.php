@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\TagCreateRequest;
 use App\Http\Requests\TagUpdateRequest;
 use App\Repositories\Contracts\TagRepository;
 use Illuminate\Http\Request;
 
-class TagsController extends Controller
+class TagsController extends AdminController
 {
     protected $repository;
 
     public function __construct(TagRepository $repository)
     {
+        parent::__construct();
+
         $this->repository = $repository;
     }
 
