@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostVisited;
 use App\Repositories\Contracts\CategoryRepository;
 use App\Repositories\Contracts\TagRepository;
 use App\Repositories\Criteria\LimitCriteria;
@@ -120,7 +121,6 @@ class PostsController extends Controller
      */
     public function show(Request $request, $slug)
     {
-
         $this->repository->pushCriteria(new WhereCriteria(['slug' => $slug]));
         $post = $this->repository->with(['user', 'tags', 'category'])->first();
         $this->repository->resetCriteria();
@@ -139,6 +139,8 @@ class PostsController extends Controller
         $relation = $this->repository->orderBy('id', 'desc')
             ->findWhere(['category_id' => $post['data']['category_id'], ['id', '<>', $post['data']['id']]]);
         //dd(DB::getQueryLog());
+
+        event(new PostVisited($post['data']));
 
         return view($this->layout .'.posts.show', $post, compact('tag'))->withRelation($relation['data'])->withOlder($older['data'])->withNewer($newer['data']);
     }
