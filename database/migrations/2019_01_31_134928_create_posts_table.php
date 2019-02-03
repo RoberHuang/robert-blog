@@ -27,8 +27,8 @@ class CreatePostsTable extends Migration
             $table->string('thumbnail')->default('');
             $table->text('content');
             $table->unsignedInteger('visited')->default(0);
-            $table->timestamp('published_at');
             $table->boolean('is_draft')->default(false)->comment('该文章是否是草稿');
+            $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
